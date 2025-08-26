@@ -1,13 +1,17 @@
-var mysql = require('mysql');
+require('dotenv').config();
+const { Pool } = require('pg');
 
-var pool = mysql.createPool({
-  host: process.env.MYSQL_HOST || 'localhost',
-  port: process.env.MYSQL_PORT || 3310,
-  user: process.env.MYSQL_USER || 'root',
-  password: process.env.MYSQL_PASSWORD || '1234',
-  database: process.env.MYSQL_DATABASE || 'dashboard_assignment',
-  multipleStatements: true,
-  connectionLimit: 100,
+const pgPool = new Pool({
+  host: process.env.PG_HOST,
+  user: process.env.PG_USER,
+  password: process.env.PG_PASSWORD,
+  database: process.env.PG_DATABASE,
+  port: process.env.PG_PORT,
+  max: 10, // Connection pool limit
 });
 
-module.exports = pool;
+pgPool.on('error', (err) => {
+  console.error('Unexpected error on idle client:', err);
+});
+
+module.exports = pgPool;

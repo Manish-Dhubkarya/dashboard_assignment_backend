@@ -6,9 +6,7 @@ var logger = require('morgan');
 var cors = require("cors");
 var indexRouter = require('./routes/index');
 var categoryRouter = require('./routes/category');
-var productRouter = require('./routes/product');
-var usersRouter = require('./routes/users');
-const pool = require('./routes/pool');
+const pgPool = require('./routes/pool');
 const upload = require('./routes/multer');
 var app = express();
 app.use(cors());
@@ -21,23 +19,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', categoryRouter);
-// app.use('/product', productRouter);
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
 
 // Create MySQL tables
 const createTablesQuery = `
-  CREATE TABLE weather_reports (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE weather_reports (
+  id SERIAL PRIMARY KEY,
   city VARCHAR(100) NOT NULL,
   country VARCHAR(50) NOT NULL,
-  fetch_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  fetch_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   weather_data JSON NOT NULL
 );
 `;
 
 
-pool.query(createTablesQuery, (error) => {
+pgPool.query(createTablesQuery, (error) => {
   if (error) {
     console.error('Error creating tables:', error);
   } else {
