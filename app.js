@@ -23,9 +23,11 @@ app.use('/api', categoryRouter);
 app.use('/', indexRouter);
 
 
-// Create MySQL tables
+
+
+// PostgreSQL table creation query
 const createTablesQuery = `
-CREATE TABLE weather_reports (
+CREATE TABLE IF NOT EXISTS weather_reports (
   id SERIAL PRIMARY KEY,
   city VARCHAR(100) NOT NULL,
   country VARCHAR(50) NOT NULL,
@@ -34,15 +36,16 @@ CREATE TABLE weather_reports (
 );
 `;
 
-
-pgPool.query(createTablesQuery, (error) => {
-  if (error) {
-    console.error('Error creating tables:', error);
-  } else {
+async function createTables() {
+  try {
+    await pgPool.query(createTablesQuery);
     console.log('Tables ready');
+  } catch (error) {
+    console.error('Error creating tables:', error);
   }
-});
+}
 
+createTables();
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
