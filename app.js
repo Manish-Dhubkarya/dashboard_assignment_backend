@@ -9,7 +9,7 @@ var categoryRouter = require('./routes/category');
 const pgPool = require('./routes/pool');
 const upload = require('./routes/multer');
 var app = express();
-app.use(cors());
+app.use(cors({origin:'*'}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
