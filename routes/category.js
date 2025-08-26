@@ -14,8 +14,8 @@ router.post('/search', async function (req, res) {
       return res.status(400).json({ status: false, message: 'City and country are required' });
     }
 
-    const API_KEY = '2face7b7c13de7ad0b08359cd89b3e7e';
-    const url = `http://api.weatherstack.com/current?access_key=2face7b7c13de7ad0b08359cd89b3e7e&query=${encodeURIComponent(city)},${encodeURIComponent(country)}&units=m`;
+    // const API_KEY = '2face7b7c13de7ad0b08359cd89b3e7e';
+    const url = `https://api.weatherstack.com/current?access_key=dcfdb9fd46b1fd3d047e6eb4216876f4&query=${city},GB&units=m`;
     const response = await axios.get(url);
     const weatherData = response.data;
 
