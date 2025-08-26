@@ -9,10 +9,10 @@ router.post('/search', async function (req, res) {
     console.log('Request Body:', req.body);
     const { city, country } = req.body;
 
-    if (!city || !country) {
-      console.error("Error: Missing city or country", req.body);
-      return res.status(400).json({ status: false, message: 'City and country are required' });
-    }
+    // if (!city || !country) {
+    //   console.error("Error: Missing city or country", req.body);
+    //   return res.status(400).json({ status: false, message: 'City and country are required' });
+    // }
 
     // const API_KEY = '2face7b7c13de7ad0b08359cd89b3e7e';
     const url = `https://api.weatherstack.com/current?access_key=dcfdb9fd46b1fd3d047e6eb4216876f4&query=${city},GB&units=m`;

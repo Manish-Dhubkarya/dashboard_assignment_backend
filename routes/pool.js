@@ -1,12 +1,12 @@
-require('dotenv').config();
+require('dotenv').config({ debug: true }); // Enable debug for dotenv
+
 const { Pool } = require('pg');
 
 const pgPool = new Pool({
-  host: process.env.PG_HOST,
-  user: process.env.PG_USER,
-  password: process.env.PG_PASSWORD,
-  database: process.env.PG_DATABASE,
-  port: process.env.PG_PORT,
+  connectionString: process.env.DATABASE_URL, // Use connection string from .env
+  ssl: {
+    rejectUnauthorized: false, // Allow self-signed certificates
+  },
   max: 10, // Connection pool limit
 });
 
