@@ -15,7 +15,7 @@ router.post('/search', async function (req, res) {
     }
 
     const API_KEY = '2face7b7c13de7ad0b08359cd89b3e7e';
-    const url = `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${encodeURIComponent(city)},${encodeURIComponent(country)}&units=m`;
+    const url = `http://api.weatherstack.com/current?access_key=2face7b7c13de7ad0b08359cd89b3e7e&query=${encodeURIComponent(city)},${encodeURIComponent(country)}&units=m`;
     const response = await axios.get(url);
     const weatherData = response.data;
 
